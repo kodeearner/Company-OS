@@ -1046,5 +1046,5 @@ None are required for core functionality. These enhance specific features:
 
 ---
 
-*CompanyOS v1.0.0 — Built for corporate governance teams*
+*CompanyOS v1.0.0 — Built for corporate governance teams - BY KODEEARNER*
 *Default timezone: Asia/Karachi (PKT, UTC+5)*
