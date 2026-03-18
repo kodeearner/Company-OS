@@ -1,0 +1,418 @@
+{
+  "_comment": "CompanyOS - Master Configuration File. All branding, DB, themes, logging, and module settings live here.",
+  "_version": "1.0.0",
+  "_scope": "Governs all 5 PHP files: index.php, api.php, resolutions.php, documents.php, settings_ui.php",
+
+  "app": {
+    "name": "CompanyOS",
+    "tagline": "Corporate Governance & Document Management Suite",
+    "company_name": "Acme Corporation Ltd.",
+    "company_short": "Acme Corp",
+    "company_registration": "RC-2024-00001",
+    "company_address": "123 Business Avenue, Suite 500, Karachi, Pakistan",
+    "company_email": "admin@acmecorp.com",
+    "company_phone": "+92-21-1234567",
+    "company_logo": "assets/logo.png",
+    "favicon": "assets/favicon.ico",
+    "version": "1.0.0",
+    "build": "2025.01",
+    "timezone": "Asia/Karachi",
+    "locale": "en_PK",
+    "date_format": "d M Y",
+    "time_format": "h:i A",
+    "currency": "PKR",
+    "currency_symbol": "₨"
+  },
+
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "name": "companyos_db",
+    "username": "root",
+    "password": "",
+    "charset": "utf8mb4",
+    "collation": "utf8mb4_unicode_ci",
+    "prefix": "cos_",
+    "auto_create_tables": true,
+    "auto_migrate": true,
+    "tables": {
+      "users":        "cos_users",
+      "roles":        "cos_roles",
+      "permissions":  "cos_permissions",
+      "directors":    "cos_directors",
+      "resolutions":  "cos_resolutions",
+      "approvals":    "cos_approvals",
+      "documents":    "cos_documents",
+      "doc_versions": "cos_document_versions",
+      "folders":      "cos_folders",
+      "audit_log":    "cos_audit_log",
+      "sessions":     "cos_sessions",
+      "settings":     "cos_settings",
+      "comments":     "cos_comments",
+      "notifications":"cos_notifications",
+      "undo_history": "cos_undo_history",
+      "tags":         "cos_tags",
+      "tag_relations":"cos_tag_relations"
+    }
+  },
+
+  "auth": {
+    "session_name": "companyos_session",
+    "session_lifetime": 86400,
+    "remember_me_days": 30,
+    "password_min_length": 8,
+    "password_require_uppercase": true,
+    "password_require_number": true,
+    "password_require_special": false,
+    "max_login_attempts": 5,
+    "lockout_duration_minutes": 15,
+    "two_factor_enabled": false,
+    "default_admin_email": "admin@acmecorp.com",
+    "default_admin_password": "Admin@1234",
+    "default_admin_name": "System Administrator"
+  },
+
+  "roles": {
+    "super_admin": {
+      "label": "Super Administrator",
+      "color": "#dc2626",
+      "icon": "shield-check",
+      "permissions": ["*"]
+    },
+    "admin": {
+      "label": "Administrator",
+      "color": "#7c3aed",
+      "icon": "shield",
+      "permissions": ["manage_users","manage_directors","manage_resolutions","manage_documents","view_audit","manage_settings"]
+    },
+    "director": {
+      "label": "Board Director",
+      "color": "#0369a1",
+      "icon": "briefcase",
+      "permissions": ["view_resolutions","approve_resolutions","sign_resolutions","view_documents","create_documents","edit_own_documents"]
+    },
+    "fellow": {
+      "label": "Fellow",
+      "color": "#065f46",
+      "icon": "user-check",
+      "permissions": ["view_resolutions","approve_resolutions","view_documents","create_documents","edit_own_documents"]
+    },
+    "staff": {
+      "label": "Staff Member",
+      "color": "#92400e",
+      "icon": "user",
+      "permissions": ["view_resolutions","view_documents","create_documents","edit_own_documents"]
+    },
+    "viewer": {
+      "label": "Viewer / Guest",
+      "color": "#6b7280",
+      "icon": "eye",
+      "permissions": ["view_resolutions","view_documents"]
+    }
+  },
+
+  "theme": {
+    "active": "corporate_blue",
+    "available": ["corporate_blue", "executive_dark", "classic_green", "slate_minimal", "warm_neutral"],
+    "themes": {
+      "corporate_blue": {
+        "label": "Corporate Blue",
+        "primary": "#1e3a5f",
+        "primary_light": "#2563eb",
+        "secondary": "#0ea5e9",
+        "accent": "#f59e0b",
+        "success": "#10b981",
+        "danger": "#ef4444",
+        "warning": "#f59e0b",
+        "info": "#3b82f6",
+        "bg_body": "#f0f4f8",
+        "bg_sidebar": "#1e3a5f",
+        "bg_topbar": "#ffffff",
+        "bg_card": "#ffffff",
+        "text_primary": "#1e293b",
+        "text_secondary": "#64748b",
+        "text_sidebar": "#cbd5e1",
+        "border_color": "#e2e8f0",
+        "ribbon_bg": "#f8fafc",
+        "ribbon_border": "#e2e8f0",
+        "tab_active_bg": "#ffffff",
+        "tab_active_border": "#2563eb",
+        "font_ui": "'Segoe UI', system-ui, -apple-system, sans-serif",
+        "font_doc": "'Calibri', 'Georgia', serif"
+      },
+      "executive_dark": {
+        "label": "Executive Dark",
+        "primary": "#0f172a",
+        "primary_light": "#6366f1",
+        "secondary": "#818cf8",
+        "accent": "#f59e0b",
+        "success": "#34d399",
+        "danger": "#f87171",
+        "warning": "#fbbf24",
+        "info": "#60a5fa",
+        "bg_body": "#0f172a",
+        "bg_sidebar": "#020617",
+        "bg_topbar": "#1e293b",
+        "bg_card": "#1e293b",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#94a3b8",
+        "text_sidebar": "#94a3b8",
+        "border_color": "#334155",
+        "ribbon_bg": "#1e293b",
+        "ribbon_border": "#334155",
+        "tab_active_bg": "#1e293b",
+        "tab_active_border": "#6366f1",
+        "font_ui": "'Segoe UI', system-ui, sans-serif",
+        "font_doc": "'Calibri', serif"
+      },
+      "classic_green": {
+        "label": "Classic Green",
+        "primary": "#14532d",
+        "primary_light": "#16a34a",
+        "secondary": "#22c55e",
+        "accent": "#eab308",
+        "success": "#16a34a",
+        "danger": "#dc2626",
+        "warning": "#d97706",
+        "info": "#0284c7",
+        "bg_body": "#f0fdf4",
+        "bg_sidebar": "#14532d",
+        "bg_topbar": "#ffffff",
+        "bg_card": "#ffffff",
+        "text_primary": "#14532d",
+        "text_secondary": "#4b7c59",
+        "text_sidebar": "#bbf7d0",
+        "border_color": "#bbf7d0",
+        "ribbon_bg": "#f0fdf4",
+        "ribbon_border": "#bbf7d0",
+        "tab_active_bg": "#ffffff",
+        "tab_active_border": "#16a34a",
+        "font_ui": "'Segoe UI', sans-serif",
+        "font_doc": "'Times New Roman', serif"
+      }
+    }
+  },
+
+  "ribbon": {
+    "show_labels": true,
+    "show_icons": true,
+    "compact_mode": false,
+    "default_tabs": {
+      "resolutions": ["Home","Resolution","Approval","Directors","Review"],
+      "documents":   ["Home","Insert","Layout","Format","Tools","Review"],
+      "directors":   ["Home","Directors","Board","Committees"],
+      "settings":    ["General","Database","Security","Theme","Notifications"]
+    }
+  },
+
+  "resolutions": {
+    "numbering_format": "RES-{YEAR}-{SEQ:04d}",
+    "numbering_start": 1,
+    "default_type": "ordinary",
+    "types": {
+      "ordinary": {"label": "Ordinary Resolution", "quorum_percent": 51, "color": "#2563eb"},
+      "special":  {"label": "Special Resolution",  "quorum_percent": 75, "color": "#7c3aed"},
+      "unanimous":{"label": "Unanimous Resolution","quorum_percent": 100,"color": "#dc2626"},
+      "circular": {"label": "Circular Resolution", "quorum_percent": 100,"color": "#0891b2"}
+    },
+    "statuses": {
+      "draft":     {"label": "Draft",     "color": "#6b7280"},
+      "pending":   {"label": "Pending",   "color": "#f59e0b"},
+      "approved":  {"label": "Approved",  "color": "#10b981"},
+      "rejected":  {"label": "Rejected",  "color": "#ef4444"},
+      "withdrawn": {"label": "Withdrawn", "color": "#8b5cf6"},
+      "archived":  {"label": "Archived",  "color": "#94a3b8"}
+    },
+    "approval": {
+      "require_all_directors": false,
+      "allow_proxy_votes": true,
+      "voting_deadline_days": 7,
+      "send_email_on_submit": true,
+      "send_email_on_approval": true,
+      "digital_signature_enabled": false
+    },
+    "undo_stack_limit": 50,
+    "autosave_interval_seconds": 30
+  },
+
+  "documents": {
+    "max_file_size_mb": 50,
+    "allowed_extensions": ["pdf","doc","docx","xls","xlsx","ppt","pptx","txt","png","jpg","jpeg","gif","zip"],
+    "storage_path": "storage/documents/",
+    "thumbnail_path": "storage/thumbnails/",
+    "version_control": true,
+    "max_versions_kept": 20,
+    "recycle_bin_days": 30,
+    "folder_depth_limit": 10,
+    "default_folders": [
+      {"name": "Board Resolutions", "icon": "file-text", "color": "#2563eb"},
+      {"name": "Financial Records", "icon": "dollar-sign", "color": "#10b981"},
+      {"name": "Legal & Compliance", "icon": "shield", "color": "#7c3aed"},
+      {"name": "HR & Personnel", "icon": "users", "color": "#f59e0b"},
+      {"name": "Correspondence", "icon": "mail", "color": "#0891b2"},
+      {"name": "Meeting Minutes", "icon": "clipboard", "color": "#dc2626"},
+      {"name": "Contracts", "icon": "file-contract", "color": "#065f46"},
+      {"name": "Policies & Procedures", "icon": "book", "color": "#92400e"}
+    ],
+    "undo_stack_limit": 50,
+    "autosave_interval_seconds": 30
+  },
+
+  "directors": {
+    "designations": [
+      "Chairman",
+      "Chief Executive Officer",
+      "Executive Director",
+      "Non-Executive Director",
+      "Independent Director",
+      "Alternate Director",
+      "Nominee Director",
+      "Managing Director"
+    ],
+    "committees": [
+      "Audit Committee",
+      "Remuneration Committee",
+      "Nomination Committee",
+      "Risk Committee",
+      "Ethics Committee"
+    ],
+    "term_years": 3,
+    "max_consecutive_terms": 3,
+    "retirement_age": 70,
+    "required_fields": ["name","cnic","designation","appointment_date","email"],
+    "optional_fields": ["phone","address","qualification","expertise","photo"]
+  },
+
+  "notifications": {
+    "enabled": true,
+    "email_enabled": false,
+    "smtp": {
+      "host": "smtp.example.com",
+      "port": 587,
+      "username": "",
+      "password": "",
+      "from_name": "CompanyOS",
+      "from_email": "noreply@acmecorp.com",
+      "encryption": "tls"
+    },
+    "in_app_enabled": true,
+    "events": {
+      "resolution_submitted":  {"notify_roles": ["admin","director"],"subject": "New Resolution Submitted"},
+      "resolution_approved":   {"notify_roles": ["admin","staff"],   "subject": "Resolution Approved"},
+      "resolution_rejected":   {"notify_roles": ["admin","staff"],   "subject": "Resolution Rejected"},
+      "approval_required":     {"notify_roles": ["director","fellow"],"subject": "Your Approval Required"},
+      "document_uploaded":     {"notify_roles": ["admin"],           "subject": "New Document Uploaded"},
+      "director_added":        {"notify_roles": ["admin"],           "subject": "New Director Added"},
+      "director_resigned":     {"notify_roles": ["admin","director"],"subject": "Director Resignation Filed"}
+    }
+  },
+
+  "audit": {
+    "enabled": true,
+    "log_logins": true,
+    "log_failed_logins": true,
+    "log_crud": true,
+    "log_exports": true,
+    "log_permission_changes": true,
+    "retention_days": 365,
+    "log_file": "logs/audit.log",
+    "error_log": "logs/error.log",
+    "access_log": "logs/access.log"
+  },
+
+  "export": {
+    "pdf_enabled": true,
+    "excel_enabled": true,
+    "csv_enabled": true,
+    "print_header": true,
+    "print_footer": true,
+    "watermark_drafts": true,
+    "watermark_text": "CONFIDENTIAL",
+    "pdf_paper_size": "A4",
+    "pdf_orientation": "portrait"
+  },
+
+  "security": {
+    "csrf_enabled": true,
+    "xss_protection": true,
+    "rate_limiting": true,
+    "rate_limit_requests_per_minute": 120,
+    "ip_whitelist_enabled": false,
+    "ip_whitelist": [],
+    "force_https": false,
+    "content_security_policy": true,
+    "data_encryption_key": "CHANGE_THIS_TO_A_RANDOM_32_CHAR_STRING_IN_PRODUCTION"
+  },
+
+  "ui": {
+    "sidebar_collapsed_default": false,
+    "sidebar_width": 260,
+    "topbar_height": 56,
+    "ribbon_height": 120,
+    "status_bar_enabled": true,
+    "breadcrumb_enabled": true,
+    "context_menu_enabled": true,
+    "drag_drop_enabled": true,
+    "keyboard_shortcuts_enabled": true,
+    "tooltips_enabled": true,
+    "animations_enabled": true,
+    "grid_view_default": false,
+    "items_per_page": 25,
+    "dense_tables": false,
+    "confirm_delete": true,
+    "auto_scroll_to_top": true,
+    "show_word_count": true,
+    "show_char_count": true
+  },
+
+  "keyboard_shortcuts": {
+    "save":         "Ctrl+S",
+    "new":          "Ctrl+N",
+    "open":         "Ctrl+O",
+    "print":        "Ctrl+P",
+    "undo":         "Ctrl+Z",
+    "redo":         "Ctrl+Y",
+    "cut":          "Ctrl+X",
+    "copy":         "Ctrl+C",
+    "paste":        "Ctrl+V",
+    "select_all":   "Ctrl+A",
+    "find":         "Ctrl+F",
+    "bold":         "Ctrl+B",
+    "italic":       "Ctrl+I",
+    "underline":    "Ctrl+U",
+    "zoom_in":      "Ctrl++",
+    "zoom_out":     "Ctrl+-",
+    "fullscreen":   "F11",
+    "help":         "F1",
+    "refresh":      "F5",
+    "close_tab":    "Ctrl+W"
+  },
+
+  "files_manifest": {
+    "index.php": {
+      "description": "Main entry point, authentication (login/logout/register), session management, routing to modules, layout shell with sidebar + ribbon + content area, JS/CSS asset loading",
+      "status": "provided",
+      "requires": ["settings.json","api.php"]
+    },
+    "api.php": {
+      "description": "REST-like AJAX backend endpoint. Handles all CRUD for resolutions, directors, documents, users, approvals, audit, notifications, undo/redo stack, file uploads, search, export triggers",
+      "status": "provided",
+      "requires": ["settings.json","db_auto_install (self)"]
+    },
+    "resolutions.php": {
+      "description": "Full resolution management UI: create/edit resolution with rich text editor, ribbon toolbar (Home/Resolution/Approval/Directors/Review tabs), approval workflow with voting, status tracking, digital signature placeholder, print/export",
+      "status": "pending",
+      "requires": ["index.php","api.php"]
+    },
+    "documents.php": {
+      "description": "Company file manager: folder tree, file upload/download/preview, document editor (rich text), version history, recycle bin, drag-and-drop, file tagging, search, bulk operations",
+      "status": "pending",
+      "requires": ["index.php","api.php"]
+    },
+    "settings_ui.php": {
+      "description": "Settings & Administration panel: company profile, user management, role/permissions matrix, director management (also accessible standalone), theme selector, DB config, email/SMTP, audit log viewer, system info",
+      "status": "pending",
+      "requires": ["index.php","api.php"]
+    }
+  }
+}
